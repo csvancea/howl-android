@@ -1,6 +1,8 @@
 package com.smd.cv.howl;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,20 +17,31 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.smd.cv.howl.databinding.FragmentDeviceConnectivityBinding;
 
-public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback {
+public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback, WiFiConnectCallback {
     private static final String TAG = DeviceConnectivityFragment.class.getSimpleName();
     private FragmentDeviceConnectivityBinding binding;
     private DeviceConnectivityChecker deviceConnChecker;
+    private NetworkChangeBroadcastReceiver networkChangeBroadcastReceiver;
+
+    private boolean isInDeviceScanningMode;
 
     public static DeviceConnectivityFragment newInstance() {
         return new DeviceConnectivityFragment();
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        deviceConnChecker = new DeviceConnectivityChecker(this);
+        networkChangeBroadcastReceiver = NetworkChangeBroadcastReceiver.registerNewInstance(this.requireActivity(), this);
+        isInDeviceScanningMode = false;
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentDeviceConnectivityBinding.inflate(inflater, container, false);
-        deviceConnChecker = new DeviceConnectivityChecker(this);
         return binding.getRoot();
     }
 
@@ -47,6 +60,14 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        isInDeviceScanningMode = false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        networkChangeBroadcastReceiver.unregister(requireActivity());
+        networkChangeBroadcastReceiver = null;
         deviceConnChecker = null;
     }
 
@@ -55,6 +76,8 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
 
         binding.deviceScanningView.setText(R.string.device_scanning_in_progress);
         binding.networkSettingsButton.setVisibility(View.INVISIBLE);
+
+        isInDeviceScanningMode = true;
     }
 
     @Override
@@ -66,7 +89,19 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
             binding.networkSettingsButton.setVisibility(View.VISIBLE);
         }
 
+        isInDeviceScanningMode = false;
+
         Snackbar.make(binding.getRoot(), "Device is " + ((isDeviceConnected) ? "up" : "down"), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void onWiFiConnected() {
+        if (!isInDeviceScanningMode) {
+            enterScanningMode();
+        }
+
+        Snackbar.make(binding.getRoot(), "Connected to a Wi-Fi network", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 }

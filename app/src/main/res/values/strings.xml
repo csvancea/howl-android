@@ -28,5 +28,6 @@
 
     <!-- Device Connectivity -->
     <string name="device_scanning_in_progress">Scanning for FireAlarm devices on the current WiFi network…</string>
+    <string name="device_scanning_failed">Make sure that your FireAlarm device is booted in configuration mode and you are connected to it.</string>
     <string name="go_to_network_settings">Go to Network Settings</string>
 </resources>

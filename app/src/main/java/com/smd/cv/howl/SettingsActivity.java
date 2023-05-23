@@ -1,7 +1,6 @@
 package com.smd.cv.howl;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +28,8 @@ public class SettingsActivity extends AppCompatActivity implements DeviceConnect
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settings, new SettingsFragment())
+                    // .replace(R.id.settings, new SettingsFragment())
+                    .replace(R.id.settings, DeviceConnectivityFragment.newInstance())
                     .commit();
         }
         ActionBar actionBar = getSupportActionBar();

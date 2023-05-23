@@ -25,4 +25,8 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Device Connectivity -->
+    <string name="device_scanning_in_progress">Scanning for FireAlarm devices on the current WiFi network…</string>
+    <string name="go_to_network_settings">Go to Network Settings</string>
 </resources>

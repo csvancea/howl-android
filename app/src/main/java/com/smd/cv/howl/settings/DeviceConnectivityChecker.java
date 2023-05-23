@@ -1,4 +1,4 @@
-package com.smd.cv.howl;
+package com.smd.cv.howl.settings;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -10,10 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-
-interface DeviceConnectivityCallback {
-    void onDeviceScanEnd(boolean isDeviceConnected);
-}
 
 class DeviceConnectivityChecker {
     private static final String DEVICE_ECHO_URL = "http://192.168.4.1/api/v1/ping";

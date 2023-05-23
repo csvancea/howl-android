@@ -1,8 +1,6 @@
-package com.smd.cv.howl;
+package com.smd.cv.howl.settings;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.FragmentDeviceConnectivityBinding;
 
 public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback, WiFiConnectCallback {

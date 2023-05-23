@@ -1,4 +1,4 @@
-package com.smd.cv.howl;
+package com.smd.cv.howl.settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
+class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
     private final WiFiConnectCallback callback;
     private boolean isConnectedToWiFi;
 

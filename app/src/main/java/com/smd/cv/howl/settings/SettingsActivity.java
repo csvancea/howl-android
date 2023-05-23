@@ -1,4 +1,4 @@
-package com.smd.cv.howl;
+package com.smd.cv.howl.settings;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.SettingsActivityBinding;
 
 public class SettingsActivity extends AppCompatActivity {

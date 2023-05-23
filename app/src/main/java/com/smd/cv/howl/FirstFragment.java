@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.smd.cv.howl.databinding.FragmentFirstBinding;
+import com.smd.cv.howl.settings.SettingsActivity;
 
 public class FirstFragment extends Fragment {
 

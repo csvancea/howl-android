@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +86,7 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
             NavHostFragment.findNavController(DeviceConnectivityFragment.this)
                     .navigate(R.id.action_deviceConnectivityFragment_to_deviceSettingsFragment);
         } else {
-            binding.deviceScanningView.setText(R.string.device_scanning_failed);
+            binding.deviceScanningView.setText(R.string.device_communication_failed);
             binding.networkSettingsButton.setVisibility(View.VISIBLE);
         }
 

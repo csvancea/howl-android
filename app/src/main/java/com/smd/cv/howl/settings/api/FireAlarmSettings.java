@@ -2,8 +2,6 @@ package com.smd.cv.howl.settings.api;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.net.URL;
-
 public class FireAlarmSettings {
     public static class WiFi {
         public final String ssid;
@@ -16,13 +14,13 @@ public class FireAlarmSettings {
     }
 
     public static class Server {
-        public final URL url;
+        public final String url;
         public final String guid;
 
         @SerializedName("root_certificate")
         public final String rootCertificate;
 
-        public Server(URL url, String guid, String rootCertificate) {
+        public Server(String url, String guid, String rootCertificate) {
             this.url = url;
             this.guid = guid;
             this.rootCertificate = rootCertificate;

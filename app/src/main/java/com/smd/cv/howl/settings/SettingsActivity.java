@@ -1,14 +1,18 @@
 package com.smd.cv.howl.settings;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.ActivitySettingsBinding;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
+    private SaveActionCallback saveActionCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +29,33 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_save) {
+            if (saveActionCallback != null) {
+                saveActionCallback.onSave();
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    public void registerSaveCallback(SaveActionCallback callback) {
+        saveActionCallback = callback;
     }
 }

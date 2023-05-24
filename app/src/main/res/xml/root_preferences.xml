@@ -2,30 +2,35 @@
 
     <PreferenceCategory app:title="@string/wifi_header">
         <ListPreference
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
+            app:entries="@array/ssid_entries"
+            app:entryValues="@array/ssid_values"
             app:key="ssid"
+            app:persistent="false"
             app:title="@string/ssid"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             app:key="password"
+            app:persistent="false"
             app:title="@string/password" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/server_header">
         <EditTextPreference
-            app:defaultValue="@string/default_server"
-            app:key="server"
-            app:title="@string/server"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
             app:defaultValue="@string/default_api_endpoint"
             app:key="api_endpoint"
+            app:persistent="true"
             app:title="@string/api_endpoint"
             app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:defaultValue="@string/default_sensor_guid"
+            app:key="sensor_guid"
+            app:persistent="true"
+            app:summary="@string/default_sensor_guid"
+            app:title="@string/sensor_guid" />
         <EditTextPreference
             app:defaultValue="@string/default_root_certificate"
             app:key="root_certificate"
+            app:persistent="false"
             app:title="@string/root_certificate" />
     </PreferenceCategory>
 

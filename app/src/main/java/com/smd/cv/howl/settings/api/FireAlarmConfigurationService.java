@@ -17,11 +17,11 @@ public interface FireAlarmConfigurationService {
     @GET("/api/v1/settings")
     Call<FireAlarmSettings> getSettings();
 
-    @POST("/api/v1/fireAlarmSettings")
-    void postSettings(@Body FireAlarmSettings fireAlarmSettings);
+    @POST("/api/v1/settings")
+    Call<Void> postSettings(@Body FireAlarmSettings fireAlarmSettings);
 
     @POST("/api/v1/switch-mode")
-    void postSwitchMode();
+    Call<Void> postSwitchMode();
 
     static FireAlarmConfigurationService newInstance() {
         // Needed for access-points. That operation is slow.

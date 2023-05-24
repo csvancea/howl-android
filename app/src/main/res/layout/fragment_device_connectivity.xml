@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings.DeviceConnectivityFragment">
+    tools:context=".settings.connectivity.DeviceConnectivityFragment">
 
     <TextView
         android:id="@+id/device_scanning_view"

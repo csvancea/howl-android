@@ -1,4 +1,4 @@
-package com.smd.cv.howl.settings;
+package com.smd.cv.howl.settings.configuration;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.smd.cv.howl.R;
-import com.smd.cv.howl.settings.api.FireAlarmAccessPointsList;
-import com.smd.cv.howl.settings.api.FireAlarmConfigurationService;
-import com.smd.cv.howl.settings.api.FireAlarmSettings;
+import com.smd.cv.howl.settings.SettingsActivity;
+import com.smd.cv.howl.settings.configuration.api.FireAlarmAccessPointsList;
+import com.smd.cv.howl.settings.configuration.api.FireAlarmConfigurationService;
+import com.smd.cv.howl.settings.configuration.api.FireAlarmSettings;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -26,8 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
-public class DeviceSettingsFragment extends PreferenceFragmentCompat implements SaveActionCallback {
-    private static final String TAG = DeviceSettingsFragment.class.getSimpleName();
+public class DeviceConfigurationFragment extends PreferenceFragmentCompat implements SaveActionCallback {
+    private static final String TAG = DeviceConfigurationFragment.class.getSimpleName();
 
     private ListPreference prefSSID;
     private EditTextPreference prefPassword;

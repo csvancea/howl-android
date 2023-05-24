@@ -1,4 +1,4 @@
-package com.smd.cv.howl.settings;
+package com.smd.cv.howl.settings.connectivity;
 
 import android.os.Handler;
 import android.os.Looper;

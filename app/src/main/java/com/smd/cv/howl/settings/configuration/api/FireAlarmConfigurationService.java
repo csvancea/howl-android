@@ -1,4 +1,4 @@
-package com.smd.cv.howl.settings.api;
+package com.smd.cv.howl.settings.configuration.api;
 
 import java.util.concurrent.TimeUnit;
 

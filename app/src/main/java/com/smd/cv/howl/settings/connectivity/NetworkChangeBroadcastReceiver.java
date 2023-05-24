@@ -1,4 +1,4 @@
-package com.smd.cv.howl.settings;
+package com.smd.cv.howl.settings.connectivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.ActivitySettingsBinding;
+import com.smd.cv.howl.settings.configuration.SaveActionCallback;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;

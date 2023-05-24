@@ -1,5 +1,6 @@
 package com.smd.cv.howl.settings;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -34,6 +35,8 @@ public class DeviceSettingsFragment extends PreferenceFragmentCompat implements 
     private Preference prefGuid;
     private EditTextPreference prefRootCertificate;
 
+    private ProgressDialog progressDialog;
+
     private FireAlarmConfigurationService deviceConfigurationService;
     private FireAlarmSettings deviceSettings;
     private FireAlarmAccessPointsList deviceAccessPointsList;
@@ -66,6 +69,11 @@ public class DeviceSettingsFragment extends PreferenceFragmentCompat implements 
 
         ((SettingsActivity)requireActivity()).registerSaveCallback(this);
 
+        progressDialog = new ProgressDialog(this.requireActivity());
+        progressDialog.setTitle(R.string.device_title_loading_settings);
+        progressDialog.setMessage(getString(R.string.device_fetching_in_progress));
+        progressDialog.setCancelable(false);
+
         settingsFetched = false;
         deviceConfigurationService = FireAlarmConfigurationService.newInstance();
         requestDeviceConfiguration();
@@ -75,10 +83,16 @@ public class DeviceSettingsFragment extends PreferenceFragmentCompat implements 
     public void onDestroy() {
         super.onDestroy();
 
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
         ((SettingsActivity)requireActivity()).registerSaveCallback(null);
     }
 
     private void requestDeviceConfiguration() {
+        progressDialog.show();
+
         deviceConfigurationService.getSettings().enqueue(new Callback<FireAlarmSettings>() {
             @Override @EverythingIsNonNull
             public void onResponse(Call<FireAlarmSettings> call, Response<FireAlarmSettings> response) {
@@ -162,6 +176,10 @@ public class DeviceSettingsFragment extends PreferenceFragmentCompat implements 
         String sensorGuid = deviceSettings.server.guid.isEmpty() ? UUID.randomUUID().toString() : deviceSettings.server.guid;
         prefGuid.setSummary(sensorGuid);
         prefGuid.setDefaultValue(sensorGuid);
+
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
 
         settingsFetched = true;
     }

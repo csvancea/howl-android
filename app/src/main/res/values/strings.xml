@@ -9,7 +9,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
     <string name="wifi_header">WiFi</string>
@@ -34,6 +34,7 @@
     <string name="go_to_network_settings">Go to Network Settings</string>
 
     <!-- Device Configuration -->
+    <string name="device_title_loading_settings">Load settings</string>
     <string name="device_fetching_in_progress">Wait for the initial configuration to be fetched</string>
     <string name="device_wifi_not_configured">WiFi must be configured in order to save the settings</string>
     <string name="device_setup_finished">Setup finished! The device should restart to normal mode shortly</string>

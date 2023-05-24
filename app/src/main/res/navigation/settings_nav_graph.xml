@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_device_connectivity" >
         <action
             android:id="@+id/action_deviceConnectivityFragment_to_deviceSettingsFragment"
-            app:destination="@id/deviceSettingsFragment" />
+            app:destination="@id/deviceSettingsFragment"
+            app:popUpTo="@+id/deviceConnectivityFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/deviceSettingsFragment"

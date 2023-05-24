@@ -1,35 +1,32 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
+    <PreferenceCategory app:title="@string/wifi_header">
         <ListPreference
-            app:defaultValue="reply"
             app:entries="@array/reply_entries"
             app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+            app:key="ssid"
+            app:title="@string/ssid"
             app:useSimpleSummaryProvider="true" />
-
+        <EditTextPreference
+            app:key="password"
+            app:title="@string/password" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
+    <PreferenceCategory app:title="@string/server_header">
+        <EditTextPreference
+            app:defaultValue="@string/default_server"
+            app:key="server"
+            app:title="@string/server"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="@string/default_api_endpoint"
+            app:key="api_endpoint"
+            app:title="@string/api_endpoint"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="@string/default_root_certificate"
+            app:key="root_certificate"
+            app:title="@string/root_certificate" />
     </PreferenceCategory>
 
 </PreferenceScreen>

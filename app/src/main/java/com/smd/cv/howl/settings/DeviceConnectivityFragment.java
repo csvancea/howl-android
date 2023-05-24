@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.provider.Settings;
 import android.util.Log;
@@ -16,13 +17,6 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.FragmentDeviceConnectivityBinding;
-import com.smd.cv.howl.settings.api.FireAlarmConfigurationService;
-import com.smd.cv.howl.settings.api.FireAlarmSettings;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.internal.EverythingIsNonNull;
 
 public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback, WiFiConnectCallback {
     private static final String TAG = DeviceConnectivityFragment.class.getSimpleName();
@@ -90,28 +84,8 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
     @Override
     public void onDeviceScanEnd(boolean isDeviceConnected) {
         if (isDeviceConnected) {
-            // TODO: request WiFi and go to the next fragment
-            FireAlarmConfigurationService service = FireAlarmConfigurationService.newInstance();
-
-            service.getSettings().enqueue(new Callback<FireAlarmSettings>() {
-                @Override
-                @EverythingIsNonNull
-                public void onResponse(Call<FireAlarmSettings> call, Response<FireAlarmSettings> response) {
-                    Log.i(TAG, "response!");
-                    if (response.isSuccessful()) {
-                        FireAlarmSettings s = response.body();
-                        if (s != null) {
-                            Log.i(TAG, s.wifi.ssid);
-                        }
-                    }
-                }
-
-                @Override
-                @EverythingIsNonNull
-                public void onFailure(Call<FireAlarmSettings> call, Throwable t) {
-                    Log.i(TAG, "failure!");
-                }
-            });
+            NavHostFragment.findNavController(DeviceConnectivityFragment.this)
+                    .navigate(R.id.action_deviceConnectivityFragment_to_deviceSettingsFragment);
         } else {
             binding.deviceScanningView.setText(R.string.device_scanning_failed);
             binding.networkSettingsButton.setVisibility(View.VISIBLE);

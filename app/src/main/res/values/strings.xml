@@ -13,11 +13,11 @@
     <string name="wifi_header">WiFi</string>
     <string name="server_header">Remote Server</string>
 
-    <!-- WiFi Preferences -->
+    <!-- WiFi SharedPreferences -->
     <string name="ssid">SSID</string>
     <string name="password">Password</string>
 
-    <!-- Server Preferences -->
+    <!-- Server SharedPreferences -->
     <string name="api_endpoint">Measurement API endpoint</string>
     <string name="sensor_guid">Sensor unique ID (press to regenerate)</string>
     <string name="root_certificate">Root certificate of the API server</string>
@@ -39,4 +39,9 @@
 
     <!-- Device Settings Action Bar -->
     <string name="action_save">Save</string>
+
+    <!-- Stored SharedPreferences -->
+    <string name="preference_file_key">preference_file_key</string>
+    <string name="preference_api_server">preference_api_server</string>
+    <string name="preference_sensor_guid">preference_sensor_guid</string>
 </resources>

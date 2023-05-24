@@ -200,7 +200,10 @@ public class DeviceConfigurationFragment extends PreferenceFragmentCompat implem
                     return;
                 }
 
-                switchDeviceToNormalMode();
+                if (getActivity() != null) {
+                    Preferences.update(getActivity(), settings);
+                    switchDeviceToNormalMode();
+                }
             }
 
             @Override @EverythingIsNonNull

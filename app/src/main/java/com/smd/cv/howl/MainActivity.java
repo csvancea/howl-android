@@ -5,9 +5,11 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.smd.cv.howl.databinding.ActivityMainBinding;
 import com.smd.cv.howl.settings.SettingsActivity;
+import com.smd.cv.howl.settings.configuration.Preferences;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +27,13 @@ public class MainActivity extends AppCompatActivity implements SettingsInvoker {
         setSupportActionBar(binding.toolbar);
 
         if (savedInstanceState == null) {
+            Fragment initialFragment = Preferences.isDeviceConfigured(this)
+                    ? new SecondFragment()
+                    : NoDeviceFragment.newInstance(this);
+
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_frame, NoDeviceFragment.newInstance(this))
+                    .replace(R.id.main_frame, initialFragment)
                     .commit();
         }
     }

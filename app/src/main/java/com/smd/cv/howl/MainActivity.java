@@ -3,6 +3,7 @@ package com.smd.cv.howl;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.smd.cv.howl.databinding.ActivityMainBinding;
@@ -11,7 +12,8 @@ import com.smd.cv.howl.settings.SettingsActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SettingsInvoker {
+    private static final int REQUEST_SETTINGS = 1;
     private ActivityMainBinding binding;
 
     @Override
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_frame, new FirstFragment())
+                    .replace(R.id.main_frame, NoDeviceFragment.newInstance(this))
                     .commit();
         }
     }
@@ -52,10 +54,29 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            invokeSettings();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_SETTINGS && resultCode == RESULT_OK) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_frame, new SecondFragment())
+                    .commit();
+        }
+    }
+
+    public void invokeSettings() {
+        startActivityForResult(
+                new Intent(this, SettingsActivity.class),
+                REQUEST_SETTINGS
+        );
     }
 }

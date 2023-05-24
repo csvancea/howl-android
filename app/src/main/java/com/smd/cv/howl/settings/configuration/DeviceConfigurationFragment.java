@@ -1,5 +1,6 @@
 package com.smd.cv.howl.settings.configuration;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.InputType;
@@ -221,6 +222,8 @@ public class DeviceConfigurationFragment extends PreferenceFragmentCompat implem
                 if (getActivity() != null) {
                     Toast.makeText(getActivity(), R.string.device_setup_finished, Toast.LENGTH_SHORT)
                                     .show();
+
+                    getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
             }

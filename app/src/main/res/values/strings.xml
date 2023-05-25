@@ -41,4 +41,9 @@
     <string name="preference_file_key">preference_file_key</string>
     <string name="preference_api_server">preference_api_server</string>
     <string name="preference_sensor_guid">preference_sensor_guid</string>
+
+    <!-- TableView -->
+    <string name="sort_ascending">Sort Ascending</string>
+    <string name="sort_descending">Sort Descending</string>
+    <string name="table_pagination_details">Page %s, showing items %s - %s.</string>
 </resources>

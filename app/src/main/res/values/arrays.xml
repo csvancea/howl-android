@@ -1,10 +1,19 @@
 <resources>
-    <!-- Reply Preference -->
+    <!-- WiFi Preference -->
     <string-array name="ssid_entries">
         <item>None</item>
     </string-array>
 
     <string-array name="ssid_values">
         <item>None</item>
+    </string-array>
+
+    <!-- Pagination -->
+    <string-array name="items_per_page">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
     </string-array>
 </resources>

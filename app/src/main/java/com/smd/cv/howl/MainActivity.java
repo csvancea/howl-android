@@ -64,6 +64,19 @@ public class MainActivity extends AppCompatActivity implements SettingsInvoker {
             return true;
         }
 
+        if (id == R.id.action_unpair) {
+            if (Preferences.isDeviceConfigured(this)) {
+                Preferences.clear(this);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_frame, NoDeviceFragment.newInstance(this))
+                        .commit();
+
+                return true;
+            }
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

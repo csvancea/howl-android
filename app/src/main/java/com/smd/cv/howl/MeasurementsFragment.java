@@ -24,6 +24,7 @@
 
 package com.smd.cv.howl;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -44,6 +45,8 @@ import com.evrencoskun.tableview.TableView;
 import com.evrencoskun.tableview.pagination.Pagination;
 import com.smd.cv.howl.api.MeasurementService;
 import com.smd.cv.howl.settings.configuration.Preferences;
+import com.smd.cv.howl.settings.connectivity.NetworkChangeBroadcastReceiver;
+import com.smd.cv.howl.settings.connectivity.NetworkConnectCallback;
 import com.smd.cv.howl.tableview.TableViewAdapter;
 import com.smd.cv.howl.tableview.TableViewDataFetcher;
 import com.smd.cv.howl.tableview.TableViewListener;
@@ -56,6 +59,11 @@ public class MeasurementsFragment extends Fragment {
     private TextView tablePaginationDetails;
     private TableView mTableView;
     private TableViewDataFetcher mTableViewDataFetcher;
+    NetworkChangeBroadcastReceiver mNetworkChangeBroadcastReceiver;
+    private ProgressDialog mProgressDialog;
+    private boolean mTableViewSuccessfullyInitialized;
+
+    @Nullable
     private Pagination mPagination; // This is used for paginating the table.
 
     public MeasurementsFragment() {
@@ -80,19 +88,43 @@ public class MeasurementsFragment extends Fragment {
         // Let's get TableView
         mTableView = view.findViewById(R.id.tableview);
 
+        mTableViewSuccessfullyInitialized = false;
+
         mTableViewDataFetcher = new TableViewDataFetcher(
                 MeasurementService.newInstance(Preferences.getApiServer(view.getContext())),
                 Preferences.getSensorGuid(view.getContext())
         );
 
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setTitle(R.string.table_load_measurements);
+        mProgressDialog.setMessage(getString(R.string.table_fetching_in_progress));
+        mProgressDialog.setCancelable(false);
+
+        mNetworkChangeBroadcastReceiver = NetworkChangeBroadcastReceiver.registerNewInstance(getContext(), onNetConnect);
         initializeTableView();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        mNetworkChangeBroadcastReceiver.unregister();
+
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
     private void initializeTableView() {
+        mProgressDialog.show();
+
         mTableViewDataFetcher.fetchMeasurements(tableViewModel -> {
             if (tableViewModel == null) {
                 return;
             }
+
+            mTableViewSuccessfullyInitialized = true;
 
             // Create TableView Adapter
             TableViewAdapter tableViewAdapter = new TableViewAdapter(tableViewModel);
@@ -107,11 +139,15 @@ public class MeasurementsFragment extends Fragment {
             // Create an instance for the TableView pagination and pass the created TableView.
             mPagination = new Pagination(mTableView);
 
+            mPagination.setItemsPerPage(TableViewDataFetcher.PER_PAGE);
+
             // Sets the pagination listener of the TableView pagination to handle
             // pagination actions. See onTableViewPageTurnedListener variable declaration below.
             mPagination.setOnTableViewPageTurnedListener(onTableViewPageTurnedListener);
 
-            mPagination.setItemsPerPage(TableViewDataFetcher.PER_PAGE);
+            if (mProgressDialog != null) {
+                mProgressDialog.dismiss();
+            }
         });
     }
 
@@ -217,6 +253,15 @@ public class MeasurementsFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable s) {
+        }
+    };
+
+    private final NetworkConnectCallback onNetConnect = new NetworkConnectCallback() {
+        @Override
+        public void onNetworkConnected() {
+            if (!mTableViewSuccessfullyInitialized) {
+                initializeTableView();
+            }
         }
     };
 }

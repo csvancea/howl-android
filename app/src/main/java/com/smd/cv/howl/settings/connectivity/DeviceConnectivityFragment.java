@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.smd.cv.howl.R;
 import com.smd.cv.howl.databinding.FragmentDeviceConnectivityBinding;
 
-public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback, WiFiConnectCallback {
+public class DeviceConnectivityFragment extends Fragment implements DeviceConnectivityCallback, NetworkConnectCallback {
     private static final String TAG = DeviceConnectivityFragment.class.getSimpleName();
     private FragmentDeviceConnectivityBinding binding;
     private DeviceConnectivityChecker deviceConnChecker;
@@ -66,7 +66,7 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
     @Override
     public void onDestroy() {
         super.onDestroy();
-        networkChangeBroadcastReceiver.unregister(requireActivity());
+        networkChangeBroadcastReceiver.unregister();
         networkChangeBroadcastReceiver = null;
         deviceConnChecker = null;
     }
@@ -97,7 +97,7 @@ public class DeviceConnectivityFragment extends Fragment implements DeviceConnec
     }
 
     @Override
-    public void onWiFiConnected() {
+    public void onNetworkConnected() {
         if (!isInDeviceScanningMode) {
             enterScanningMode();
         }

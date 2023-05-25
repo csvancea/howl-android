@@ -7,11 +7,12 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
-    private final WiFiConnectCallback callback;
-    private boolean isConnectedToWiFi;
+public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
+    private final Context context;
+    private final NetworkConnectCallback callback;
+    private boolean isConnected;
 
-    public static NetworkChangeBroadcastReceiver registerNewInstance(Context context, WiFiConnectCallback callback) {
+    public static NetworkChangeBroadcastReceiver registerNewInstance(Context context, NetworkConnectCallback callback) {
         NetworkChangeBroadcastReceiver broadcastReceiver = new NetworkChangeBroadcastReceiver(context, callback);
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -19,32 +20,33 @@ class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
         return broadcastReceiver;
     }
 
-    public void unregister(Context context) {
+    public void unregister() {
         context.unregisterReceiver(this);
     }
 
-    private NetworkChangeBroadcastReceiver(Context context, WiFiConnectCallback callback) {
+    private NetworkChangeBroadcastReceiver(Context context, NetworkConnectCallback callback) {
+        this.context = context;
         this.callback = callback;
-        this.isConnectedToWiFi = isConnectedToWiFiNetwork(context);
+        this.isConnected = isConnected(context);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean currentlyConnected = isConnectedToWiFiNetwork(context);
+        boolean currentlyConnected = isConnected(context);
 
-        if (currentlyConnected != isConnectedToWiFi) {
+        if (currentlyConnected != isConnected) {
             if (currentlyConnected) {
-                callback.onWiFiConnected();
+                callback.onNetworkConnected();
             }
 
-            isConnectedToWiFi = currentlyConnected;
+            isConnected = currentlyConnected;
         }
     }
 
-    private boolean isConnectedToWiFiNetwork(Context context) {
+    private boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        return (activeNetwork != null && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI);
+        return (activeNetwork != null);
     }
 }

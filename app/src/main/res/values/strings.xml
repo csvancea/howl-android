@@ -47,4 +47,7 @@
     <string name="sort_ascending">Sort Ascending</string>
     <string name="sort_descending">Sort Descending</string>
     <string name="table_pagination_details">Page %s, showing items %s - %s.</string>
+
+    <string name="table_load_measurements">Loading measurements</string>
+    <string name="table_fetching_in_progress">Wait for the measurements to be fetched</string>
 </resources>

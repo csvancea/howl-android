@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SettingsInvoker {
 
         if (savedInstanceState == null) {
             Fragment initialFragment = Preferences.isDeviceConfigured(this)
-                    ? new SecondFragment()
+                    ? new MeasurementsFragment()
                     : NoDeviceFragment.newInstance(this);
 
             getSupportFragmentManager()
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements SettingsInvoker {
         if (requestCode == REQUEST_SETTINGS && resultCode == RESULT_OK) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_frame, new SecondFragment())
+                    .replace(R.id.main_frame, new MeasurementsFragment())
                     .commit();
         }
     }
